@@ -58,3 +58,8 @@ Ref: <https://playwright.dev/docs/locators#filtering-locators>
 - Filter by not having text
 - Filter by child/descendant
 - Filter by not having child/descendant
+
+```bash
+npm run cucumber-ts -- --tags @login
+npm run cucumber-ts -- --tags @success_sort
+```
