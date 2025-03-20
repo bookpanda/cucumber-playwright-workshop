@@ -7,8 +7,8 @@ Feature: Inventory Sorting Feature
         Then the inventory items should be sorted in the correct order corresponding to "<option_value>"
         Examples:
             | username      | password     | option_label        | option_value |
-            # | standard_user | secret_sauce | Name (Z to A)       | za           |
-            # | standard_user | secret_sauce | Price (low to high) | lohi         |
+            | standard_user | secret_sauce | Name (Z to A)       | za           |
+            | standard_user | secret_sauce | Price (low to high) | lohi         |
             | standard_user | secret_sauce | Price (high to low) | hilo         |
 
     @failed_sort

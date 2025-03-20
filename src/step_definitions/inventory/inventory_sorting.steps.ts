@@ -37,8 +37,9 @@ Then(
       expect(currentItem).not.toBeNull();
       expect(nextItem).not.toBeNull();
 
-      const itemPriceAttribute = '[class="inventory_item_price"]';
-
+      console.log("Current item: ", currentItem);
+      const itemPriceAttribute = "[data-test='inventory-item-price']";
+      const itemNameAttribute = "[data-test='inventory-item-name']";
       // Current Item
       const currentItemPriceString = await currentItem
         ?.locator(itemPriceAttribute)
@@ -46,6 +47,8 @@ Then(
       const currentItemPriceDouble = parseFloat(
         currentItemPriceString?.replaceAll("$", "") || ""
       );
+      const currentItemName =
+        (await currentItem?.locator(itemNameAttribute).innerText()) || "";
 
       const nextItemPriceString = await nextItem
         ?.locator(itemPriceAttribute)
@@ -53,6 +56,8 @@ Then(
       const nextItemPriceDouble = parseFloat(
         nextItemPriceString?.replaceAll("$", "") || ""
       );
+      const nextItemName =
+        (await nextItem?.locator(itemNameAttribute).innerText()) || "";
 
       expect(currentItemPriceDouble).not.toBeNaN();
       expect(nextItemPriceDouble).not.toBeNaN();
@@ -61,7 +66,29 @@ Then(
         expect(currentItemPriceDouble).toBeGreaterThanOrEqual(
           nextItemPriceDouble
         );
+      } else if (optionValue === "lohi") {
+        expect(currentItemPriceDouble).toBeLessThanOrEqual(nextItemPriceDouble);
+      } else if (optionValue === "za") {
+        const normalizedCurrentItemName = currentItemName.trim().toLowerCase();
+        const normalizedNextItemName = nextItemName.trim().toLowerCase();
+        const comparisonResult = normalizedCurrentItemName.localeCompare(
+          normalizedNextItemName
+        );
+        expect(comparisonResult).toBeGreaterThanOrEqual(0);
       }
     }
+  }
+);
+
+Then(
+  "I should see an error dialog with error message {string}",
+  async function (errorMessage: string) {
+    const alert = await customWorld?.page?.waitForEvent("dialog");
+    expect(alert).not.toBeNull();
+
+    console.log("Alert message: ", alert?.message());
+
+    expect(alert?.message()).toContain(errorMessage);
+    await alert?.accept();
   }
 );
