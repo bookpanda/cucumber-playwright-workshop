@@ -83,12 +83,9 @@ Then(
 Then(
   "I should see an error dialog with error message {string}",
   async function (errorMessage: string) {
-    const alert = await customWorld?.page?.waitForEvent("dialog");
-    expect(alert).not.toBeNull();
-
-    console.log("Alert message: ", alert?.message());
-
-    expect(alert?.message()).toContain(errorMessage);
-    await alert?.accept();
+    await customWorld?.page?.on("dialog", (dialog) => {
+      expect(dialog.message()).toBe(errorMessage);
+      dialog.accept();
+    });
   }
 );
