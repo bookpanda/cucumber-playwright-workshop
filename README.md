@@ -62,4 +62,5 @@ Ref: <https://playwright.dev/docs/locators#filtering-locators>
 ```bash
 npm run cucumber-ts -- --tags @login
 npm run cucumber-ts -- --tags @success_sort
+npm run cucumber-ts -- --tags @add_item
 ```
