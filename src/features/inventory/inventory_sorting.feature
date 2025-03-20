@@ -1,5 +1,6 @@
 @inventory @inventory_sort
 Feature: Inventory Sorting Feature
+    @success_sort
     Scenario Outline: Successfully sorting inventory products
         Given I log in to the inventory page with username "<username>" and password "<password>"
         When I select the "<option_label>" with value "<option_value>" sorting option
@@ -10,6 +11,7 @@ Feature: Inventory Sorting Feature
             # | standard_user | secret_sauce | Price (low to high) | lohi         |
             | standard_user | secret_sauce | Price (high to low) | hilo         |
 
+    @failed_sort
     Scenario Outline: Failed to sort the inventory products
         Given I log in to the inventory page with username "<username>" and password "<password>"
         When I select the "<option_label>" with value "<option_value>" sorting option

@@ -18,7 +18,7 @@ Given(
         .getByRole("button", {
           name: "Login",
         })
-        .click();
+        .click(); // redirects to /inventory.html
     }
   }
 );
